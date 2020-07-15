@@ -4,23 +4,36 @@
 <?php include '../includes/header.inc.php'; ?>
 
 <?php
+
     $select_jobs = new Job();
-    $jobs = $select_jobs->getAllJobs();
-
-    $categories = $select_jobs->getCategories();
-
     
+   
+   
+
+    if(isset($_GET['category'])) {
+
+        $category = $_GET['category'];
+
+        $categories = $select_jobs->getByCategory($category);
+
+    }
+
+    $jobs = $select_jobs->getAllJobs();
+     $categories = $select_jobs->getCategories();
+
 ?>
 
       <div class="jumbotron">
         <h1>Find A Job</h1>
-        <form action="">
+        <form action="index.php" method="GET">
             <select class="form-control" name="category" id="">
                 <option value="0">Choose Category</option>
                 <?php foreach($categories as $category): ?>
                     <option value="<?php echo $category->cat_id; ?>"><?php echo $category->cat_name; ?></option>
                 <?php endforeach; ?>
             </select>
+            <br>
+            <input type="submit" class="btn btn-lg btn-success" value="FIND">
         </form>
       </div>
 <?php foreach($jobs as $job): ?>
