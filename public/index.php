@@ -7,20 +7,23 @@
 
     $select_jobs = new Job();
     
-   
-   
+        $category= isset($_GET['category']) ? $_GET['category'] : null;
 
-    if(isset($_GET['category'])) {
+        if($category) {
 
-        $category = $_GET['category'];
+             $jobs = $select_jobs->getByCategory($category);
+             $job_title = 'Latest Jobs in anything'; 
 
-        $categories = $select_jobs->getByCategory($category);
+        } else {
 
-    }
+            $job_title = 'Latest Jobs';
+            $jobs = $select_jobs->getAllJobs();
+        }
+       
 
-    $jobs = $select_jobs->getAllJobs();
-     $categories = $select_jobs->getCategories();
+        $categories = $select_jobs->getCategories();
 
+      
 ?>
 
       <div class="jumbotron">
@@ -36,6 +39,7 @@
             <input type="submit" class="btn btn-lg btn-success" value="FIND">
         </form>
       </div>
+      <h3><?php echo $job_title; ?></h3>
 <?php foreach($jobs as $job): ?>
         <div class="row marketing">
             <div class="col-md-10">

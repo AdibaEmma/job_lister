@@ -28,19 +28,35 @@ class Job extends Database {
         return $categories;
     }
 
+
+    public function getCategory($category) {
+
+    $query = "SELECT * FROM categories WHERE cat_id = ?";
+
+        $stmt = $this->connect()->prepare($query);
+        $stmt->execute([$category]);
+
+       $result = $stmt->fetchAll();
+
+       return $result;
+    }
+
+
     public function getByCategory($category) {
 
         $query = "SELECT jobs.*, categories.cat_name AS cname 
         FROM jobs 
         INNER JOIN categories 
         ON jobs.cat_id = categories.cat_id 
-        WHERE jobs.cat_id = $category 
+        WHERE jobs.cat_id = ?
         ORDER BY post_date DESC
         ";
 
-        $stmt = $this->connect()->query($query);
-        $jobs = $stmt->fetchAll();
+        $stmt = $this->connect()->prepare($query);
+         $stmt->execute([$category]);
 
-        return $jobs;
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+       return $result;
     }
 } 
