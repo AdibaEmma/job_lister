@@ -12,7 +12,8 @@
         if($category) {
 
              $jobs = $select_jobs->getByCategory($category);
-             $job_title = 'Latest Jobs in anything'; 
+
+            $job_title = 'Jobs In ' . $select_jobs->getCategory($category); 
 
         } else {
 

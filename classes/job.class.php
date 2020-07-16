@@ -36,8 +36,9 @@ class Job extends Database {
         $stmt = $this->connect()->prepare($query);
         $stmt->execute([$category]);
 
-       $result = $stmt->fetchAll();
-
+        while($row = $stmt->fetch(PDO::FETCH_BOTH)) {
+            $result = $row['cat_name'];
+        }
        return $result;
     }
 
