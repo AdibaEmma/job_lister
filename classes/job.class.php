@@ -73,4 +73,29 @@ class Job extends Database {
 
         return $result;
     }
-} 
+
+    // Create job
+    public function create($category_id,$job_title,$company,$description,$location,$salary,$contact_user,$contact_email) {
+      $query = "INSERT INTO jobs (cat_id, job_title, company, description, location, salary, contact_user, contact_email) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+      $stmt = $this->connect()->prepare($query);
+
+    //   $stmt->bindValue(':cat_id',$data['category_id'],PDO::PARAM_INT);
+    //   $stmt->bindValue(':job_title',$data['job_title'],PDO::PARAM_STR);
+    //   $stmt->bindValue(':company',$data['company'],PDO::PARAM_STR);
+    //   $stmt->bindValue(':description',$data['description'],PDO::PARAM_STR);
+    //   $stmt->bindValue(':location',$data['location'],PDO::PARAM_STR);
+    //   $stmt->bindValue(':salary',$data['salary'],PDO::PARAM_STR);
+    //   $stmt->bindValue(':contact_user',$data['contact_user'],PDO::PARAM_STR);
+    //   $stmt->bindValue(':contact_email',$data['contact_email'],PDO::PARAM_STR);
+
+       $result = $stmt->execute([$category_id, $job_title,$company,$description,$location,$salary,$contact_user,$contact_email]);
+
+      if($result) {
+          return true;
+      } else {
+          return false;
+      }
+
+    }
+}

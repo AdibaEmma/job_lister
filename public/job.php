@@ -14,6 +14,7 @@
       
 ?>
 
+<div class="container">
 <h2 class="page-header"><?php echo $single_job->job_title; ?> (<?php echo $single_job->location; ?>)</h2>
 <small>Posted By <?php echo $single_job->contact_user; ?> on <?php echo $single_job->post_date; ?></small>
 <hr>

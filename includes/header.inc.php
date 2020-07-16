@@ -1,3 +1,7 @@
+<?php session_start(); ?>
+<?php require_once '../config/system-helper.php'; ?>
+
+
 <?php define("SITE_TITLE", "JobLister"); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,3 +27,4 @@
         </nav>
         <h3 class="text-muted"><?php echo SITE_TITLE; ?></h3>
       </div>
+      <?php displayMessage(); ?>
