@@ -60,4 +60,17 @@ class Job extends Database {
 
        return $result;
     }
+
+    // Get Single Job
+    public function getJob($id) {
+
+         $query = "SELECT * FROM jobs WHERE job_id = ?";
+
+        $stmt = $this->connect()->prepare($query);
+        $stmt->execute([$id]);
+        
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+
+        return $result;
+    }
 } 

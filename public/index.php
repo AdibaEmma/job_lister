@@ -48,7 +48,7 @@
               <p><?php echo $job->description; ?></p>
             </div>
             <div class="col-md-2">
-                    <a href="" class="btn btn-default" href="# ">View</a>
+               <a class="btn btn-default" href="job.php?id=<?php echo $job->job_id; ?>">View</a>
             </div>
         </div>
     <?php endforeach; ?>
