@@ -11,10 +11,12 @@ class Database {
         try {
             $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $pdo = new PDO($dsn, $this->user, $this->pwd);
-        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_BOTH);
 
         } catch (PDOException $e) {
-            $e->getMessage();
+            echo "Error!" . $e->getMessage();
+            die();
         }
 
         

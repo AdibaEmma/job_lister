@@ -2,8 +2,11 @@
 
 function redirect($page = FALSE, $message = NULL, $message_type = NULL) {
     if(is_string($page)) {
+
         $location = $page;
+
     } else {
+        
         $location = $_SERVER['SCRIPT_NAME'];
     }
 
@@ -14,10 +17,12 @@ function redirect($page = FALSE, $message = NULL, $message_type = NULL) {
 
     // Check for Type
     if($message_type != NULL) {
+
         $_SESSION['message_type'] = $message_type;
     }
 
     header('Location: '.$location);
+    
     exit;
 }
 

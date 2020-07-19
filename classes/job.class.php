@@ -64,15 +64,16 @@ class Job extends Database {
     // Get Single Job
     public function getJob($id) {
 
-         $query = "SELECT * FROM jobs WHERE job_id = ?";
-
+        $query = "SELECT * FROM jobs WHERE job_id = :id";
         $stmt = $this->connect()->prepare($query);
-        $stmt->execute([$id]);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
         
         $result = $stmt->fetch(PDO::FETCH_OBJ);
 
         return $result;
     }
+
 
     // Create job
     public function create($category_id,$job_title,$company,$description,$location,$salary,$contact_user,$contact_email) {
@@ -90,6 +91,56 @@ class Job extends Database {
     //   $stmt->bindValue(':contact_email',$data['contact_email'],PDO::PARAM_STR);
 
        $result = $stmt->execute([$category_id, $job_title,$company,$description,$location,$salary,$contact_user,$contact_email]);
+
+      if($result) {
+          return true;
+      } else {
+          return false;
+      }
+
+    }
+
+    public function delete($id) {
+
+      $query = "DELETE FROM jobs WHERE job_id = $id";
+      $stmt = $this->connect()->prepare($query);
+      
+      $result = $stmt->execute();
+
+        if($result) {
+            return true;
+        } else {
+            return false;
+        }
+
+
+    }
+
+      // Edit job
+    public function update($category_id,$job_title,$company,$description,$location,$salary,$contact_user,$contact_email,$id) {
+      $query = "UPDATE jobs 
+                SET 
+                cat_id = ?,
+                 job_title = ?, 
+                 company = ?, 
+                 description = ?, 
+                 location = ?, 
+                 salary = ?, 
+                 contact_user = ?, 
+                 contact_email = ?
+                  WHERE job_id = ?";
+      $stmt = $this->connect()->prepare($query);
+
+    //   $stmt->bindValue(':cat_id',$data['category_id'],PDO::PARAM_INT);
+    //   $stmt->bindValue(':job_title',$data['job_title'],PDO::PARAM_STR);
+    //   $stmt->bindValue(':company',$data['company'],PDO::PARAM_STR);
+    //   $stmt->bindValue(':description',$data['description'],PDO::PARAM_STR);
+    //   $stmt->bindValue(':location',$data['location'],PDO::PARAM_STR);
+    //   $stmt->bindValue(':salary',$data['salary'],PDO::PARAM_STR);
+    //   $stmt->bindValue(':contact_user',$data['contact_user'],PDO::PARAM_STR);
+    //   $stmt->bindValue(':contact_email',$data['contact_email'],PDO::PARAM_STR);
+
+       $result = $stmt->execute([$category_id, $job_title,$company,$description,$location,$salary,$contact_user,$contact_email,$id]);
 
       if($result) {
           return true;
